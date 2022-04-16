@@ -1,15 +1,20 @@
 package com.example.expensemanager.Model;
 
-public class Data {
+public class Data1 {
     private int amount;
     private String type;
-    private String note;
-
     private String date;
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getAmount() {
-        return (int) amount;
+        return amount;
     }
 
     public void setAmount(int amount) {
@@ -24,25 +29,5 @@ public class Data {
         this.type = type;
     }
 
-    public String getNote() {
-        return note;
-    }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public Data(){
-
-    }
 }
-

@@ -24,24 +24,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.common.math.Stats;
-import com.google.firebase.auth.FirebaseAuth;
+
+
 
 import static com.example.expensemanager.R.string.navigation_drawer_open;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private BottomNavigationView bottomNavigationView;
     private FrameLayout frameLayout;
 
     //Fragment
-
     private DashboardFragment dashboardFragment;
     private IncomeFragment incomeFragment;
     private ExpenseFragment expenseFragment;
 
-
-    //private FirebaseAuth mAuth;
 
 
     @Override
@@ -74,41 +70,34 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView=findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        bottomNavigationView=findViewById(R.id.bottomNavbar);
-        frameLayout=findViewById(R.id.main_frame);
-
-        dashboardFragment=new DashboardFragment();
-        incomeFragment=new IncomeFragment();
-        expenseFragment=new ExpenseFragment();
-       
-
-        setFragment(dashboardFragment);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
 
                     case R.id.dashboard:
-                        setFragment(dashboardFragment);
+                       startActivity(new Intent(getApplication(),HomeActivity.class));
                         return true;
                     case R.id.income:
-                        setFragment(incomeFragment);
+                        startActivity(new Intent(HomeActivity.this,IncomeActivity.class));
                         return true;
                     case R.id.expense:
-                        setFragment(expenseFragment);
-                        return true;
-//                    case R.id.stats:
-//                        setFragment(statsFragment);
-//                        return true;
+                       startActivity(new Intent(HomeActivity.this,ExpenseActivity.class));
+                       return  true;
 
                     default:
                         return false;
 
-
                 }
             }
         });
-    }
+        frameLayout=findViewById(R.id.main_frame);
+
+        dashboardFragment=new DashboardFragment();
+        incomeFragment=new IncomeFragment();
+        expenseFragment=new ExpenseFragment();
+        setFragment(dashboardFragment);
+ }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
@@ -129,56 +118,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void displaySelectedListener(int itemId){
-        Fragment fragment = null;
-
-        switch(itemId){
-            case android.R.id.home:
-                DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
-                drawerLayout.openDrawer(GravityCompat.START);
-                return;
-            case R.id.dashboard:
-                bottomNavigationView.setSelectedItemId(R.id.dashboard);
-                fragment=new DashboardFragment();
-                break;
-
-            case R.id.income:
-                bottomNavigationView.setSelectedItemId(R.id.income);
-                fragment=new IncomeFragment();
-                break;
-
-            case R.id.expense:
-                bottomNavigationView.setSelectedItemId(R.id.expense);
-                fragment=new ExpenseFragment();
-                break;
-//            case R.id.stats:
-//                bottomNavigationView.setSelectedItemId(R.id.stats);
-//                bottomNavigationView.findViewById(R.id.stats).performClick();
-//                bottomNavigationView.performClick();
-//                fragment=new StatsFragment();
-//                break;
-//            case R.id.account:
-//                fragment=new AccountFragment();
-//                break;
-//            case R.id.logout:
-//                mAuth.signOut();
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                break;
-        }
-        if(fragment!=null){
-            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.main_frame, fragment);
-            ft.commit();
-        }
-
-        DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Log.i("ITEM ID", Integer.toString(item.getItemId()));
-        displaySelectedListener(item.getItemId());
-        return true;
+        return false;
     }
 }

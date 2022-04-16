@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseManager">
         <activity
+            android:name=".IncomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExpenseActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
